@@ -37,12 +37,14 @@ public class Echo {
                                        return new HelloClass(name,rollno,sem);
                                      }
 
-    @ApiMethod(name = "pnr", path = "pnr",
+    @ApiMethod(name = "check", path = "check",
             httpMethod = HttpMethod.GET)
 
-    public HelloClass pnr (@Named("no") String no) {
-        return new HelloClass().pnr(no);
+    public HelloClass check (@Named("no") String no) {
+        return new HelloClass().check(no);
     }
 
-
+    public HelloClass uploadQuestion(){
+        return new HelloClass().uploadQuestions();
+    }
 }
