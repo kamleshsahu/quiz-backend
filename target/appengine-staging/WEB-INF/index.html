@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Leak-Agency</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+</head>
+<body>
+<h2>SSGI DATABASE</h2>
+
+<Div class="alert alert-light">
+
+    Sem :  <label class="radio-inline"><input type="radio" name="sem" value="3" checked>3rd</label>
+    <label class="radio-inline"><input type="radio" name="sem" value="5">5th</label>
+     <div>
+    Sec :<label class="radio-inline"><input type="radio" name="sec" value="A" checked>A </label>
+    <label class="radio-inline"><input type="radio" name="sec" value="B">B</label>
+     </div>
+    <p>Roll No: <input type="number" id="rno" value="1" size=5/></p>
+    <div class="col-md-2 col-md-offset-13">
+    <button  type="button" id="butt" class="btn btn-success ">Submit</button>
+    </div>
+    </DIV>
+
+<script>
+
+    $(document).ready(function(){
+        $("#div2").hide();
+        console.log("doc is ready ");
+        $("#butt").click(function(){
+            $("#marks").empty();
+            $("#sinfo").empty();
+            $("#attend").empty();
+            $("#total").empty();
+
+            var sem = $("input[name='sem']:checked").val();
+            var sec = $("input[name='sec']:checked").val();
+            var rno = $("#rno").val();
+            var id=sem+sec+rno;
+            var url="http://sahu-trials.appspot.com/_ah/api/myapi/v1/showdata?id="+id;
+                console.log("Your have selected - id :" + sem+sec+rno);
+            $.get(url, function(data, status){
+
+
+               console.log("Data: " + data + "\nStatus: " + status);
+
+                   console.log("here is the name :"+data.sname);
+                   console.log("subs :"+data.subs[0].teacher);
+                   console.log("subs :"+data.subs[0].theory.value);
+
+                $("#div2").show();
+                for(var k=0;k<data.subs.length;k++){
+                    $("#marks").append(" <tr>\n" +
+
+                        "        <td>"+data.subs[k].name+"\n(<h7>"+data.subs[k].teacher+")</h7></td>\n" +
+                        "        <td>"+data.subs[k].theory.value+"</td>\n" +
+                        "        <td>"+data.subs[k].ct1.value+"</td>\n" +
+                        "        <td>"+data.subs[k].ct2.value+"</td>\n" +
+                        "        <td>"+data.subs[k].ctT.value+"</td>\n" +
+                        "        <td>"+data.subs[k].taCal.value+"</td>\n" +
+                        "      </tr>");
+                }
+
+                $("#sinfo").append("Name : "+data.sname+"<p>  Sem : "+data.sem+"   Sec : "+data.sec+"   RNo : "+data.rno+"</p>");
+                $("#total").append("Sessional Marks :"+data.total+"/385");
+                $("#attend").append("Attendence :"+data.attend+"%");
+
+
+
+            });
+        });
+
+    });
+
+</script>
+<nav class="container" id="div2" >
+    <nav class="alert alert-danger" role="alert"><h4 id="sinfo"></h4></nav>
+    <h5 >Marks Details:</h5>
+    <table class="table table-striped">
+        <thead class="alert alert-warning" role="alert">
+        <tr >
+            <th id="subj">Sub</th>
+            <th>Atten(%)</th>
+            <th>CT1(40)</th>
+            <th>CT2(40)</th>
+            <th id="">CT-CAL(20)</th>
+            <th>TA(20)</th>
+        </tr>
+        </thead>
+        <tbody id="marks">
+        </tbody>
+    </table>
+
+    <div class="alert alert-warning" role="alert">
+    <h5 id="attend" ></h5>
+    <h5 id="total" ></h5>
+    </div>
+
+</nav>
+
+</body>
+</html>

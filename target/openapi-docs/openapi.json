@@ -1,0 +1,100 @@
+{
+ "swagger": "2.0",
+ "info": {
+  "version": "1.0.0",
+  "title": "quizgame-backend.appspot.com"
+ },
+ "host": "quizgame-backend.appspot.com",
+ "basePath": "/_ah/api",
+ "schemes": [
+  "https"
+ ],
+ "consumes": [
+  "application/json"
+ ],
+ "produces": [
+  "application/json"
+ ],
+ "paths": {
+  "/myapi/v1/pnr": {
+   "get": {
+    "operationId": "MyapiPnr",
+    "parameters": [
+     {
+      "name": "no",
+      "in": "query",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/HelloClass"
+      }
+     }
+    }
+   }
+  },
+  "/myapi/v1/sayHello": {
+   "get": {
+    "operationId": "MyapiSayHello",
+    "parameters": [ ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/HelloClass"
+      }
+     }
+    }
+   }
+  },
+  "/myapi/v1/sayHelloByName": {
+   "post": {
+    "operationId": "MyapiSayHelloByName",
+    "parameters": [
+     {
+      "name": "name",
+      "in": "query",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "rollno",
+      "in": "query",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+     },
+     {
+      "name": "sem",
+      "in": "query",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/HelloClass"
+      }
+     }
+    }
+   }
+  }
+ },
+ "definitions": {
+  "_any": { },
+  "HelloClass": {
+   "properties": {
+    "message": {
+     "$ref": "#/definitions/_any"
+    }
+   }
+  }
+ }
+}
