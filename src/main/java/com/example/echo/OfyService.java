@@ -5,6 +5,7 @@ import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
 
+
 /**
  * Custom Objectify Service that this application should use.
  */
@@ -15,7 +16,7 @@ public class OfyService {
     static {
 
         factory().register(QuestionBank.class);
-        factory().register(Questions.class);
+        factory().register(Question.class);
     }
 
     /**
@@ -25,6 +26,7 @@ public class OfyService {
      */
     public static Objectify ofy() {
         return ObjectifyService.ofy();
+
     }
 
     /**
@@ -34,4 +36,6 @@ public class OfyService {
     public static ObjectifyFactory factory() {
         return ObjectifyService.factory();
     }
+
+
 }

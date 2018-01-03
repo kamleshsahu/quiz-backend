@@ -34,18 +34,18 @@
   </filter>
   <filter>
     <filter-name>endpoints-api-configuration</filter-name>
-    <filter-class origin="WebDescriptor(file:///C:/Users/kamlesh/Documents/GitHub/quiz-v2-backend/target/appengine-staging/WEB-INF/web.xml):4">com.google.api.control.ServiceManagementConfigFilter</filter-class>
+    <filter-class origin="WebDescriptor(file:///C:/Users/kamlesh/Documents/GitHub/quiz-backend/target/appengine-staging/WEB-INF/web.xml):4">com.google.api.control.ServiceManagementConfigFilter</filter-class>
     <async-supported>false</async-supported>
   </filter>
   <filter>
     <filter-name>endpoints-api-controller</filter-name>
-    <filter-class origin="WebDescriptor(file:///C:/Users/kamlesh/Documents/GitHub/quiz-v2-backend/target/appengine-staging/WEB-INF/web.xml):5">com.google.api.control.extensions.appengine.GoogleAppEngineControlFilter</filter-class>
+    <filter-class origin="WebDescriptor(file:///C:/Users/kamlesh/Documents/GitHub/quiz-backend/target/appengine-staging/WEB-INF/web.xml):5">com.google.api.control.extensions.appengine.GoogleAppEngineControlFilter</filter-class>
     <async-supported>false</async-supported>
-    <init-param origin="WebDescriptor(file:///C:/Users/kamlesh/Documents/GitHub/quiz-v2-backend/target/appengine-staging/WEB-INF/web.xml):6">
+    <init-param origin="WebDescriptor(file:///C:/Users/kamlesh/Documents/GitHub/quiz-backend/target/appengine-staging/WEB-INF/web.xml):6">
       <param-name>endpoints.projectId</param-name>
       <param-value>quizgame-backend</param-value>
     </init-param>
-    <init-param origin="WebDescriptor(file:///C:/Users/kamlesh/Documents/GitHub/quiz-v2-backend/target/appengine-staging/WEB-INF/web.xml):7">
+    <init-param origin="WebDescriptor(file:///C:/Users/kamlesh/Documents/GitHub/quiz-backend/target/appengine-staging/WEB-INF/web.xml):7">
       <param-name>endpoints.serviceName</param-name>
       <param-value>quizgame-backend.appspot.com</param-value>
     </init-param>
@@ -97,8 +97,8 @@
   </servlet>
   <servlet>
     <servlet-name>EndpointsServlet</servlet-name>
-    <servlet-class origin="WebDescriptor(file:///C:/Users/kamlesh/Documents/GitHub/quiz-v2-backend/target/appengine-staging/WEB-INF/web.xml):12">com.google.api.server.spi.EndpointsServlet</servlet-class>
-    <init-param origin="WebDescriptor(file:///C:/Users/kamlesh/Documents/GitHub/quiz-v2-backend/target/appengine-staging/WEB-INF/web.xml):13">
+    <servlet-class origin="WebDescriptor(file:///C:/Users/kamlesh/Documents/GitHub/quiz-backend/target/appengine-staging/WEB-INF/web.xml):12">com.google.api.server.spi.EndpointsServlet</servlet-class>
+    <init-param origin="WebDescriptor(file:///C:/Users/kamlesh/Documents/GitHub/quiz-backend/target/appengine-staging/WEB-INF/web.xml):13">
       <param-name>services</param-name>
       <param-value>com.example.echo.Echo</param-value>
     </init-param>
@@ -120,7 +120,7 @@
     <servlet-name>_ah_queue_deferred</servlet-name>
     <url-pattern>/_ah/queue/__deferred__</url-pattern>
   </servlet-mapping>
-  <servlet-mapping origin="WebDescriptor(file:///C:/Users/kamlesh/Documents/GitHub/quiz-v2-backend/target/appengine-staging/WEB-INF/web.xml):18">
+  <servlet-mapping origin="WebDescriptor(file:///C:/Users/kamlesh/Documents/GitHub/quiz-backend/target/appengine-staging/WEB-INF/web.xml):18">
     <servlet-name>EndpointsServlet</servlet-name>
     <url-pattern>/_ah/api/*</url-pattern>
   </servlet-mapping>

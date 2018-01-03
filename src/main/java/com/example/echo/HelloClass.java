@@ -18,8 +18,8 @@ public class HelloClass {
         this.message = "Hello " + name + "!";
     }
 
-    public HelloClass pnr(String no){
-        this.message ="you are the fucking "+no+" bro!!!";
+    public HelloClass check(String no){
+        this.message ="git added ."+no+" yo yo my son!!!";
 
 //        try {
 //
@@ -35,8 +35,18 @@ public class HelloClass {
     }
 
 
+     public HelloClass uploadQuestions(){
+         this.message= new QuestionDownloader().QuestionDownloader();
+        return this;
+     }
 
 
+     public HelloClass dnldQuest(String PID,String Topic){
+
+          this.message =new makeQue_forGamePlay().makeQue_forGamePlay(PID,Topic);
+
+         return this;
+     }
 
 
 

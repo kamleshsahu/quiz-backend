@@ -5,9 +5,6 @@ import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiMethod.HttpMethod;
 import com.google.api.server.spi.config.Named;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 /**
  * Defines endpoint functions APIs.
  */
@@ -47,4 +44,16 @@ public class Echo {
     public HelloClass uploadQuestion(){
         return new HelloClass().uploadQuestions();
     }
+
+    @ApiMethod(name = "dnldQuests", path = "dnldQuests",
+            httpMethod = HttpMethod.GET)
+
+    public Object dnldQuests (@Named("PID") String PID,
+                              @Named("Topic") String Topic) {
+       // return new HelloClass().dnldQuest(PID,Topic);
+
+        return new makeQue_forGamePlay().makeQue_forGamePlay(PID,Topic);
+    }
+
+
 }
