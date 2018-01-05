@@ -1,6 +1,7 @@
 package com.example.echo;
 
 
+import com.google.appengine.api.datastore.Query;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.VoidWork;
@@ -21,17 +22,21 @@ public class makeQue_forGamePlay {
 
     public Object makeQue_forGamePlay(String PID,String topic) {
 
-        Random randno =new Random();
+
         int max=185;
        // String topic="astrology";
         QuestionBank qb =new QuestionBank();
         List<Question> questionList = new ArrayList<Question>();
         qb.topic =topic;
         String id = null;
+
+
+        int[] randno = new Random().ints(0, 185).distinct().limit(7).toArray();
+
         try {
             for (int k = 0; k < 7; k++) {
 
-                id = topic + "-" + randno.nextInt(max);
+                id = topic + "-" + randno[k];
                 System.out.println(id);
 
                 String finalId = id;
@@ -40,12 +45,16 @@ public class makeQue_forGamePlay {
                         //   System.out.println();
 
                         Question question = ofy().load().key(Key.create(Question.class, finalId)).now();
+
+
                         questionList.add(question);
                     }
                 });
 
             }
             qb.questionlist =questionList;
+
+
             return qb;
         }catch (Exception e){
             e.fillInStackTrace();
