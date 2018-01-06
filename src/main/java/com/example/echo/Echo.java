@@ -51,9 +51,36 @@ public class Echo {
     public Object dnldQuests (@Named("PID") String PID,
                               @Named("Topic") String Topic) {
        // return new HelloClass().dnldQuest(PID,Topic);
+     //   return new savePlayerDetails().savePlayerDetailss();
 
-        return new makeQue_forGamePlay().makeQue_forGamePlay(PID,Topic);
+       return new makeQue_forGamePlay().makeQue_forGamePlay(PID,Topic);
+    }
+
+    @ApiMethod(name = "RegPlayer", path = "RegPlayer",
+            httpMethod = HttpMethod.GET)
+
+    public HelloClass RegPlayer ( @Named("PID") String PID,
+                                  @Named("Name") String name,
+                                  @Named("pic_url") String pic_url,
+                                  @Named("country") String country) {
+         return new HelloClass().savePlayerDetails(PID,name,pic_url,country);
+
+    }
+    @ApiMethod(name = "getPlayer", path = "getPlayer",
+            httpMethod = HttpMethod.GET)
+    public HelloClass getP ( @Named("PID") String PID) {
+        return new HelloClass().getPlayerDetails(PID);
+
     }
 
 
+    @ApiMethod(name = "updateStats", path = "updateStats",
+            httpMethod = HttpMethod.GET)
+
+    public HelloClass updateStats ( @Named("PID") String PID,
+                                    @Named("Q_Correct") int Q_Correct,
+                                    @Named("Score") int Score,
+                                    @Named("Topic") String topic) {
+        return new HelloClass().saveStats(PID,topic,Q_Correct,Score);
+    }
 }

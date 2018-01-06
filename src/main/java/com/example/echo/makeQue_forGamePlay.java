@@ -1,7 +1,8 @@
 package com.example.echo;
 
 
-import com.google.appengine.api.datastore.Query;
+import com.example.echo.models.Question;
+import com.example.echo.models.QuestionBank;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.VoidWork;

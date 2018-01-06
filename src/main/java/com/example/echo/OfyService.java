@@ -1,6 +1,10 @@
 package com.example.echo;
 
 
+import com.example.echo.models.Player;
+import com.example.echo.models.Question;
+import com.example.echo.models.QuestionBank;
+import com.example.echo.models.Stats;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
@@ -17,6 +21,8 @@ public class OfyService {
 
         factory().register(QuestionBank.class);
         factory().register(Question.class);
+        factory().register(Player.class);
+
     }
 
     /**
