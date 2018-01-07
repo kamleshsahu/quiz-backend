@@ -3,8 +3,8 @@ package com.example.echo.models;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Index;
-import com.googlecode.objectify.annotation.Parent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +18,12 @@ public class Player {
     @Index
     String country;
 
+    @Ignore
+    int Rank;
+    @Ignore
+    String Accuracy;
 
-    List<Stats> statsList =new ArrayList<Stats>();
+
 
 
     public Player(String email,String name,String pic_url,String country) {
@@ -29,9 +33,13 @@ public class Player {
     this.country=country;
     }
 
-    public Player(String email,List<Stats> statsList) {
-     this.email =email;
-     this.statsList=statsList;
+    public Player(String email,String name,String pic_url,String country,int Rank,String accuracy) {
+        this.email=email;
+        this.name=name;
+        this.pic_url=pic_url;
+        this.country=country;
+        this.Rank=Rank;
+        this.Accuracy=accuracy;
     }
 
     public Player() {
@@ -46,11 +54,35 @@ public class Player {
         return name;
     }
 
-    public List<Stats> getStatsList() {
-        return statsList;
+    public int getRank() {
+        return Rank;
     }
 
-    public void setStatsList(List<Stats> statsList) {
-        this.statsList = statsList;
+    public void setRank(int rank) {
+        Rank = rank;
+    }
+
+    public String getAccuracy() {
+        return Accuracy;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setAccuracy(String accuracy) {
+        Accuracy = accuracy;
+    }
+
+    public String getPic_url() {
+        return pic_url;
+    }
+
+    public void setPic_url(String pic_url) {
+        this.pic_url = pic_url;
     }
 }

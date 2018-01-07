@@ -1,6 +1,7 @@
 package com.example.echo;
 
-
+//import com.google.devrel.training.conference.domain.Conference;
+//import com.google.devrel.training.conference.domain.Profile;
 import com.example.echo.models.Player;
 import com.example.echo.models.Question;
 import com.example.echo.models.QuestionBank;
@@ -8,7 +9,6 @@ import com.example.echo.models.Stats;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
-
 
 /**
  * Custom Objectify Service that this application should use.
@@ -18,11 +18,11 @@ public class OfyService {
      * This static block ensure the entity registration.
      */
     static {
-
-        factory().register(QuestionBank.class);
-        factory().register(Question.class);
+//        factory().register(Conference.class);
+        factory().register(Stats.class);
         factory().register(Player.class);
-
+        factory().register(Question.class);
+        factory().register(QuestionBank.class);
     }
 
     /**
@@ -32,7 +32,6 @@ public class OfyService {
      */
     public static Objectify ofy() {
         return ObjectifyService.ofy();
-
     }
 
     /**
@@ -42,6 +41,4 @@ public class OfyService {
     public static ObjectifyFactory factory() {
         return ObjectifyService.factory();
     }
-
-
 }
