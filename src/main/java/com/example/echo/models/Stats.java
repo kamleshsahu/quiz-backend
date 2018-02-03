@@ -22,7 +22,9 @@ public class Stats {
     int totalScore=0;
     int Correct=0;
     int Q_Solved=0;
+    @Ignore
     int Q_Total;
+    @Ignore
     String accuracy="";
 
 

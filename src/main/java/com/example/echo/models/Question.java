@@ -5,10 +5,12 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Index;
 
 
 import javax.naming.Context;
+import java.beans.Transient;
 import java.io.Serializable;
 import java.lang.reflect.Type;
 
@@ -36,6 +38,11 @@ public class Question implements Serializable
     @SerializedName("Answer")
     @Expose
     public String answer;
+
+    @SerializedName("topic")
+    @Expose
+    @Index
+    public String topic;
 
     @SerializedName("context")
     @Expose

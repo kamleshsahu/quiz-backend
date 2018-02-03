@@ -19,3 +19,4 @@ com\example\echo\makeQue_forGamePlay.class
 com\example\echo\models\Stats.class
 com\example\echo\models\Ranking.class
 com\example\echo\QuestionDownloader.class
+com\example\echo\makeQue_forGamePlay$2.class

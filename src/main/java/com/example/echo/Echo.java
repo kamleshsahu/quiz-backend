@@ -41,8 +41,8 @@ public class Echo {
 //        return new HelloClass().check(no);
 //    }
 
-    public HelloClass uploadQuestion(){
-        return new HelloClass().uploadQuestions();
+    public HelloClass uploadQuestion(@Named("no") int no){
+        return new HelloClass().uploadQuestions(no);
     }
 
     @ApiMethod(name = "dnldQuests", path = "dnldQuests",
@@ -77,7 +77,7 @@ public class Echo {
     @ApiMethod(name = "updateStats", path = "updateStats",
             httpMethod = HttpMethod.GET)
 
-    public HelloClass updateStats ( @Named("PID") String PID,
+     public HelloClass updateStats (@Named("PID") String PID,
                                     @Named("Q_Correct") int Q_Correct,
                                     @Named("Score") int Score,
                                     @Named("Topic") String topic) {

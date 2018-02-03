@@ -4,6 +4,7 @@ package com.example.echo;
 
 
 import com.example.echo.models.Player;
+import com.example.echo.models.Question;
 import com.example.echo.models.Ranking;
 import com.example.echo.models.Stats;
 import com.google.appengine.api.datastore.PropertyProjection;
@@ -21,6 +22,7 @@ import static java.lang.Math.round;
 
 public class HelloClass {
     public Object message = "Hello World";
+    public String status;
 
     public HelloClass () {
     }
@@ -46,8 +48,8 @@ public class HelloClass {
     }
 
 
-     public HelloClass uploadQuestions(){
-         this.message= new QuestionDownloader().QuestionDownloader();
+     public HelloClass uploadQuestions(int no){
+         this.message= new QuestionDownloader().QuestionDownloader(no);
         return this;
      }
 
@@ -104,42 +106,85 @@ public class HelloClass {
         return this;
     }
 
+//    public HelloClass updateStats(String PID,String topic,int Q_Correct,int Score){
+//        final Object[] obj=new Object[1];
+//        final Stats[] stats1=new Stats[1];
+//        final String[] message = {""};
+//        ObjectifyService.run(new VoidWork() {
+//            public void vrun() {
+//
+//               try {
+//                   System.out.println(topic);
+//                   System.out.println(PID);
+//                   String id = PID + "-" + topic;
+//
+//                   System.out.println(id);
+//                   stats1[0] = ofy().load().key(Key.create(Stats.class, id)).now();
+//
+//                   if (stats1[0] == null) {
+//                       Stats stats = new Stats(topic, Q_Correct, 7, Score, PID);
+//                       ofy().save().entity(stats).now();
+//                       message[0]="succesfully created and saved stats entity";
+//                   } else if (stats1[0] != null) {
+//                       stats1[0].setQ_Solved(stats1[0].getQ_Solved() + 7);
+//                       stats1[0].setCorrect(stats1[0].getCorrect() + Q_Correct);
+//                       stats1[0].setTotalScore(stats1[0].getTotalScore() + Score);
+//                       ofy().save().entity(stats1[0]).now();
+//                       message[0]="succesfully updated stats entity";
+//                   }
+//               }catch (Exception e){
+//                   e.fillInStackTrace();
+//                   message[0]="error,saveStats fn :"+e.toString();
+//               }
+//            }
+//        });
+//        this.message=message[0];
+//        return this;
+//    }
+    
     public HelloClass updateStats(String PID,String topic,int Q_Correct,int Score){
-        final Object[] obj=new Object[1];
-        final Stats[] stats1=new Stats[1];
-        final String[] message = {""};
-        ObjectifyService.run(new VoidWork() {
-            public void vrun() {
+        final String[] status = {""};
+        final Stats stats=ObjectifyService.run(new Work<Stats>() {
+            @Override
+            public Stats run() {
+                try {
+                    System.out.println(topic);
+                    System.out.println(PID);
+                    String id = PID + "-" + topic;
 
-               try {
-                   System.out.println(topic);
-                   System.out.println(PID);
-                   String id = PID + "-" + topic;
-                   //    Key([Key("ancestorKindName", idOrName),] "kindName", idOrName)
-                   //   Key<Stats> statskey = Key.create(stats.getId());
+                    System.out.println(id);
+                    Stats stats = ofy().load().key(Key.create(Stats.class, id)).now();
 
-                   System.out.println(id);
-                   stats1[0] = ofy().load().key(Key.create(Stats.class, id)).now();
-
-                   if (stats1[0] == null) {
-                       Stats stats = new Stats(topic, Q_Correct, 7, Score, PID);
-                       ofy().save().entity(stats).now();
-                       message[0]="succesfully created and saved stats entity";
-                   } else if (stats1[0] != null) {
-                       stats1[0].setQ_Solved(stats1[0].getQ_Solved() + 7);
-                       stats1[0].setCorrect(stats1[0].getCorrect() + Q_Correct);
-                       stats1[0].setTotalScore(stats1[0].getTotalScore() + Score);
-                       ofy().save().entity(stats1[0]).now();
-                       message[0]="succesfully updated stats entity";
-                   }
-               }catch (Exception e){
-                   e.fillInStackTrace();
-                   message[0]="error,saveStats fn :"+e.toString();
-               }
+                    if (stats == null) {
+                        stats = new Stats(topic, Q_Correct, 7, Score, PID);
+                        ofy().save().entity(stats).now();
+                        stats.setQ_Total(ofy().load().type(Question.class).filter("topic =",topic).count());
+                        float accuracy = (float) Q_Correct / 7 * 100;
+                        stats.setAccuracy(String.valueOf(Math.round(accuracy * 100.0) / 100.0));
+                        status[0]="succesfully created and saved stats entity";
+                    } else if (stats != null) {
+                        stats.setQ_Solved(stats.getQ_Solved() + 7);
+                        stats.setCorrect(stats.getCorrect() + Q_Correct);
+                        stats.setTotalScore(stats.getTotalScore() + Score);
+                        ofy().save().entity(stats).now();
+                        float accuracy = (float) stats.getCorrect() / (float) stats.getQ_Solved() * 100;
+                        stats.setAccuracy(String.valueOf(Math.round(accuracy * 100.0) / 100.0));
+                        stats.setQ_Total(ofy().load().type(Question.class).filter("topic =",topic).count());
+                        status[0]="succesfully updated stats entity";
+                    }
+                    return stats;
+                }catch (Exception e){
+                    e.fillInStackTrace();
+                    status[0]="error,saveStats fn :"+e.toString();
+                }
+                
+                return null;
             }
         });
-        this.message=message[0];
-        return this;
+        
+        this.status=status[0];
+        this.message=stats;
+        return this; 
     }
 
      public HelloClass getStats(String topic,String PID){
@@ -153,11 +198,11 @@ public class HelloClass {
                  if(stats[0] == null){
                      Stats stats1 =new Stats(topic,0,0,0,PID);
                      stats1.setAccuracy("-");
-                     stats1.setQ_Total(200);
+                     stats1.setQ_Total(ofy().load().type(Question.class).filter("topic =",topic).count());
                      stats[0]=stats1;
                  }else {
                      float accuracy = (float) stats[0].getCorrect() / (float) stats[0].getQ_Solved() * 100;
-                     stats[0].setQ_Total(200);
+                     stats[0].setQ_Total(ofy().load().type(Question.class).filter("topic =",topic).count());
                      stats[0].setAccuracy(String.valueOf(Math.round(accuracy * 100.0) / 100.0));
                  }
 
@@ -199,7 +244,6 @@ public class HelloClass {
                       Stats stats = ofy().load().key(Key.create(Stats.class, PID + "-" + topic)).now();
                       if (p2 != null && stats != null) {
                           List<Stats> statsList2 = ofy().load().type(Stats.class).filter("topic =", topic).order("-totalScore").list();
-                          int PlayerRank = 0;
                           for (int m = 0; m < statsList2.size(); m++) {
                               if (statsList2.get(m).getPID().equals(PID)) {
                                   float accuracy = (float) statsList2.get(m).getCorrect() / (float) statsList2.get(m).getQ_Solved() * 100;
@@ -222,18 +266,5 @@ public class HelloClass {
          return this;
      }
 
-//     public HelloClass query1() {
-//         Query q = new Query("Player");
-//         q.addProjection(new PropertyProjection("PID", String.class));
-//         System.out.println("here is query result :" + q);
-//         Object obj = ObjectifyService.run(new Work<Object>() {
-//                                               @Override
-//                                               public Object run() {
-//                                                   return ofy().load().project("SELECT PID FROM Player WHERE NAME EQUAL KAMLESH");
-//                                               }
-//                                           }
-//         );
-//
-//         return this;
-//     }
+
 }
