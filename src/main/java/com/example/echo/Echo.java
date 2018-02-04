@@ -4,6 +4,7 @@ import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiMethod.HttpMethod;
 import com.google.api.server.spi.config.Named;
+import com.googlecode.objectify.annotation.Cache;
 
 /**
  * Defines endpoint functions APIs.
@@ -45,6 +46,7 @@ public class Echo {
         return new HelloClass().uploadQuestions(no);
     }
 
+
     @ApiMethod(name = "dnldQuests", path = "dnldQuests",
             httpMethod = HttpMethod.GET)
 
@@ -55,6 +57,16 @@ public class Echo {
 
        return new makeQue_forGamePlay().makeQue_forGamePlay(PID,Topic);
     }
+
+
+    @ApiMethod(name = "Quests_Multiplay", path = "Quests_Multiplay",
+            httpMethod = HttpMethod.PUT)
+
+    public Object Quests_Multiplay (@Named("RoomID") String RoomID,
+                              @Named("Topic") String Topic) {
+        return new makeQue_forMultiplay().makeQue_forMultiPlay(RoomID,Topic);
+    }
+
 
     @ApiMethod(name = "RegPlayer", path = "RegPlayer",
             httpMethod = HttpMethod.GET)

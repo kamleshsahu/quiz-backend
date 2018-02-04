@@ -61,7 +61,16 @@ public class HelloClass {
          return this;
      }
 
-        public HelloClass savePlayerDetails(String PID,String name,String pic_url,String country){
+//     public HelloClass dnldQuest_multiplayer(String RoomID,String Topic){
+//
+//        this.message =new makeQue_forGamePlay().makeQue_forGamePlay(RoomID,Topic);
+//
+//        return this;
+//     }
+
+
+
+    public HelloClass savePlayerDetails(String PID,String name,String pic_url,String country){
                 String[] message = {""};
             ObjectifyService.run(new VoidWork() {
                 public void vrun() {

@@ -2,10 +2,7 @@ package com.example.echo;
 
 //import com.google.devrel.training.conference.domain.Conference;
 //import com.google.devrel.training.conference.domain.Profile;
-import com.example.echo.models.Player;
-import com.example.echo.models.Question;
-import com.example.echo.models.QuestionBank;
-import com.example.echo.models.Stats;
+import com.example.echo.models.*;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
@@ -23,6 +20,9 @@ public class OfyService {
         factory().register(Player.class);
         factory().register(Question.class);
         factory().register(QuestionBank.class);
+        factory().register(QuestionsApi.class);
+        factory().register(Rooms.class);
+
     }
 
     /**
